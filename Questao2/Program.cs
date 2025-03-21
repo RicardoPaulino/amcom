@@ -21,34 +21,33 @@ public class Program
         // Team Chelsea scored 92 goals in 2014
     }
 
-    public static int getTotalScoredGoals(string team, int year)
+    public static int getTotalScoredGoals(string teamName, int year)
     {
         int totalGoals = 0;
-        int page = 1;
-        bool hasNextPage = true;
         HttpClient client = new HttpClient();
-        while (hasNextPage)
-        { 
-            var responseTeam1 = GetGoalsByTeamRole(client, team, year, "team1", page);
-            var responseTeam2 = GetGoalsByTeamRole(client, team, year, "team2", page);
-
-            foreach (var data in responseTeam1.Data!)
+        foreach(string team in new string[] { "team1", "team2" })
+        {            
+            int page = 1;
+            bool hasNextPage = true;
+            
+            while (hasNextPage)
             {
-                totalGoals += int.Parse(data.Team1goals!);
-            }
-            foreach (var data in responseTeam2.Data!)
-            {
-                totalGoals += int.Parse(data.Team2goals!);
-            }
+                var responseTeam = GetGoalsByTeamRole(client, teamName, year, team, page);
 
-            hasNextPage = page < responseTeam1.Total_pages || page < responseTeam2.Total_pages;
-            page++;
+                foreach (var data in responseTeam.Data!)
+                {
+                    totalGoals += int.Parse(team == "team1" ? data.Team1goals!: data.Team2goals!);
+                }
+
+                hasNextPage = page < responseTeam.Total_pages;
+                page++;
+            }            
         }
         return totalGoals;
     }
 
     private static ApiResponse GetGoalsByTeamRole(HttpClient client, string team, int year, string role, int page)
-    {   
+    {
         string url = $"https://jsonmock.hackerrank.com/api/football_matches?year={year}&{role}={team}&page={page}";
         string json = client.GetStringAsync(url).Result;
         var resultData = JsonConvert.DeserializeObject<ApiResponse>(json)!;
