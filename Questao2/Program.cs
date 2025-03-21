@@ -23,40 +23,43 @@ public class Program
 
     public static int getTotalScoredGoals(string team, int year)
     {
-        HttpClient client = new HttpClient();
-        int totalGoals = 0;
-        totalGoals += GetGoalsByTeamRole(client, team, year, "team1");
-        totalGoals += GetGoalsByTeamRole(client, team, year, "team2");
-
-        return totalGoals;
-    }
-
-    private static int GetGoalsByTeamRole(HttpClient client, string team, int year, string role)
-    {
         int totalGoals = 0;
         int page = 1;
         bool hasNextPage = true;
-
+        HttpClient client = new HttpClient();
         while (hasNextPage)
-        {
-            string url = $"https://jsonmock.hackerrank.com/api/football_matches?year={year}&{role}={team}&page={page}";
-            string json = client.GetStringAsync(url).Result;
-            var resultData = JsonConvert.DeserializeObject<ApiResponse>(json)!;
-            foreach (var data in resultData.Data!)
+        { 
+            var responseTeam1 = GetGoalsByTeamRole(client, team, year, "team1", page);
+            var responseTeam2 = GetGoalsByTeamRole(client, team, year, "team2", page);
+
+            foreach (var data in responseTeam1.Data!)
             {
-                totalGoals += int.Parse(role == "team1" ? data.Team1goals ?? "0" : data.Team2goals ?? "0");
+                totalGoals += int.Parse(data.Team1goals!);
             }
-            hasNextPage = resultData.Page < resultData.Total_pages;
+            foreach (var data in responseTeam2.Data!)
+            {
+                totalGoals += int.Parse(data.Team2goals!);
+            }
+
+            hasNextPage = page < responseTeam1.Total_pages || page < responseTeam2.Total_pages;
             page++;
         }
-
         return totalGoals;
+    }
+
+    private static ApiResponse GetGoalsByTeamRole(HttpClient client, string team, int year, string role, int page)
+    {   
+        string url = $"https://jsonmock.hackerrank.com/api/football_matches?year={year}&{role}={team}&page={page}";
+        string json = client.GetStringAsync(url).Result;
+        var resultData = JsonConvert.DeserializeObject<ApiResponse>(json)!;
+
+        return resultData;
     }
 }
 
 public class ApiResponse
 {
-    public int Page { get; set; }    
+    public int Page { get; set; }
     public int Total_pages { get; set; }
     public List<ChampionShipResult>? Data { get; set; }
 }
