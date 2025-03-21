@@ -1,0 +1,17 @@
+C:\workbspace\amcom\Questao2\bin\Debug\net6.0\Questao2.exe
+C:\workbspace\amcom\Questao2\bin\Debug\net6.0\Questao2.deps.json
+C:\workbspace\amcom\Questao2\bin\Debug\net6.0\Questao2.runtimeconfig.json
+C:\workbspace\amcom\Questao2\bin\Debug\net6.0\Questao2.dll
+C:\workbspace\amcom\Questao2\bin\Debug\net6.0\Questao2.pdb
+C:\workbspace\amcom\Questao2\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\workbspace\amcom\Questao2\obj\Debug\net6.0\Questao2.csproj.AssemblyReference.cache
+C:\workbspace\amcom\Questao2\obj\Debug\net6.0\Questao2.GeneratedMSBuildEditorConfig.editorconfig
+C:\workbspace\amcom\Questao2\obj\Debug\net6.0\Questao2.AssemblyInfoInputs.cache
+C:\workbspace\amcom\Questao2\obj\Debug\net6.0\Questao2.AssemblyInfo.cs
+C:\workbspace\amcom\Questao2\obj\Debug\net6.0\Questao2.csproj.CoreCompileInputs.cache
+C:\workbspace\amcom\Questao2\obj\Debug\net6.0\Questao2.csproj.Up2Date
+C:\workbspace\amcom\Questao2\obj\Debug\net6.0\Questao2.dll
+C:\workbspace\amcom\Questao2\obj\Debug\net6.0\refint\Questao2.dll
+C:\workbspace\amcom\Questao2\obj\Debug\net6.0\Questao2.pdb
+C:\workbspace\amcom\Questao2\obj\Debug\net6.0\Questao2.genruntimeconfig.cache
+C:\workbspace\amcom\Questao2\obj\Debug\net6.0\ref\Questao2.dll
