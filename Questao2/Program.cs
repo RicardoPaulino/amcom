@@ -25,18 +25,18 @@ public class Program
     {
         int totalGoals = 0;
         HttpClient client = new HttpClient();
-        foreach(string team in new string[] { "team1", "team2" })
+        foreach(string teamRole in new string[] { "team1", "team2" })
         {            
             int page = 1;
             bool hasNextPage = true;
             
             while (hasNextPage)
             {
-                var responseTeam = GetGoalsByTeamRole(client, teamName, year, team, page);
+                var responseTeam = GetGoalsByTeamRole(client, teamName, year, teamRole, page);
 
                 foreach (var data in responseTeam.Data!)
                 {
-                    totalGoals += int.Parse(team == "team1" ? data.Team1goals!: data.Team2goals!);
+                    totalGoals += int.Parse(teamRole == "team1" ? data.Team1goals!: data.Team2goals!);
                 }
 
                 hasNextPage = page < responseTeam.Total_pages;
