@@ -1,0 +1,72 @@
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.vs/
+.vscode/
+
+# Build and dependency files
+bin/
+obj/
+out/
+packages/
+!packages/repositories.config
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+# Logs and Debugging
+*.log
+*.tlog
+*.dmp
+*.pdb
+
+# Rider / JetBrains
+.idea/
+
+# ASP.NET Core environment files
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Production.json
+appsettings.Staging.json
+
+# Entity Framework Migrations
+Migrations/
+
+# Visual Studio Code
+.vscode/
+.history/
+
+# Rider / JetBrains
+.idea/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Local Test Configurations
+testresults/
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+*.code-workspace
+
+# Azure Pipelines
+.azure-pipelines.yml
+
+# SonarQube
+.sonar/
+
+# StyleCop
+StyleCopCache/
+
+# npm packages (if using front-end with React/Angular)
+node_modules/

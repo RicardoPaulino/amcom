@@ -1,6 +1,6 @@
-using MediatR;
-using Questao5.Infrastructure.Sqlite;
 using System.Reflection;
+using Questao5.Infrastructure.Sqlite;
+using MediatR; 
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,5 +41,3 @@ app.Run();
 
 // Informações úteis:
 // Tipos do Sqlite - https://www.sqlite.org/datatype3.html
-
-

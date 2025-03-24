@@ -16,10 +16,10 @@ namespace Questao1 {
             if (resp == 's' || resp == 'S') {
                 Console.Write("Entre o valor de depósito inicial: ");
                 double depositoInicial = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                conta = new ContaBancaria(numero, titular, depositoInicial);
+                conta = new ContaBancaria(numero, titular!, depositoInicial);
             }
             else {
-                conta = new ContaBancaria(numero, titular);
+                conta = new ContaBancaria(numero, titular!);
             }
 
             Console.WriteLine();
