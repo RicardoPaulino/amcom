@@ -7,32 +7,55 @@ using System.Net;
 
 namespace Questao5.Application.Handlers
 {
-    public class ConsultarSaldoHandler : IRequestHandler<ConsultarSaldoRequest, ConsultarSaldoContaResponse>
+    public class ConsultarSaldoHandler : IRequestHandler<ConsultarSaldoRequest, (HttpStatusCode, ConsultarSaldoContaResponse)>
     {
-        private readonly IIdempotanceRepository _idempotenciaRepository;
-        private readonly IMovementRepository _movementRepository;
+        private readonly IMovimentoRepository _movimentoRepository;
         private readonly IContaCorrenteRepository _contaCorrenteRepository;
 
         public ConsultarSaldoHandler(
-               IIdempotanceRepository idempotenciaRepository,
-               IMovementRepository movementRepository,
+               IMovimentoRepository movementRepository,
                IContaCorrenteRepository contaCorrenteRepository)
         {
-            _idempotenciaRepository = idempotenciaRepository;
-            _movementRepository = movementRepository;
+            _movimentoRepository = movementRepository;
             _contaCorrenteRepository = contaCorrenteRepository;
         }
 
-        public Task<ConsultarSaldoContaResponse> Handle(ConsultarSaldoRequest request, CancellationToken cancellationToken)
+        public async Task<(HttpStatusCode, ConsultarSaldoContaResponse)> Handle(ConsultarSaldoRequest request, CancellationToken cancellationToken)
         {
             var contaCorrente = _contaCorrenteRepository.BuscarContaCorrente(request.NumeroContaCorrente);
-            if (contaCorrente != null && contaCorrente.Ativo == true)
+            if (contaCorrente == null)
             {
-                decimal saldo = _movementRepository.BuscarSaldo(contaCorrente.IdContaCorrente!);
-                return Task.FromResult(new ConsultarSaldoContaResponse { Saldo = saldo, NumeroContaCorrente = contaCorrente.Numero });
+                return (HttpStatusCode.BadRequest, new ConsultarSaldoContaResponse { DataHoraConsulta = DateTime.Now, TipoFalha = "INVALID_ACCOUNT" });
             }
 
-            return Task.FromResult(new ConsultarSaldoContaResponse { Saldo = 0, NumeroContaCorrente = 0 });
+            if (!contaCorrente.Ativo)
+            {
+                return (HttpStatusCode.BadRequest, new ConsultarSaldoContaResponse { DataHoraConsulta = DateTime.Now, TipoFalha = "INACTIVE_ACCOUNT" });
+            }
+            var movimentacao = _movimentoRepository.Existe(contaCorrente.IdContaCorrente!);
+            if (movimentacao)
+            {
+                decimal saldo = _movimentoRepository.BuscarSaldo(contaCorrente.IdContaCorrente!);
+                var result = new ConsultarSaldoContaResponse
+                {
+                    Saldo = saldo,
+                    NumeroContaCorrente = contaCorrente.Numero,
+                    NomeTitular = contaCorrente.Nome!,
+                    DataHoraConsulta = DateTime.Now
+                };
+                return (HttpStatusCode.OK, result);
+            }
+            else
+            {
+                var result = new ConsultarSaldoContaResponse
+                {
+                    Saldo = 0,
+                    NumeroContaCorrente = contaCorrente.Numero,
+                    NomeTitular = contaCorrente.Nome!,
+                    DataHoraConsulta = DateTime.Now
+                };
+                return (HttpStatusCode.OK, result);
+            }            
         }
     }
 }

@@ -6,11 +6,12 @@ using Questao5.Infrastructure.Sqlite;
 
 namespace Questao5.Infrastructure.Repositories
 {
-    public class MovementRepository : IMovementRepository
+    public class MovimentoRepository
+        : IMovimentoRepository
     {
         private readonly DatabaseConfig databaseConfig;
 
-        public MovementRepository(DatabaseConfig databaseConfig)
+        public MovimentoRepository(DatabaseConfig databaseConfig)
         {
             this.databaseConfig = databaseConfig;
         }
@@ -32,6 +33,15 @@ namespace Questao5.Infrastructure.Repositories
                 "FROM movimento WHERE idcontacorrente = @NumeroContaCorrente",
                 new { NumeroContaCorrente = numeroContaCorrente });
             return saldo;
+        }
+
+        public bool Existe(string idContaCorrente)
+        {
+            using var connection = new SqliteConnection(databaseConfig.Name);
+            var result = connection.QueryFirstOrDefault<int>(
+                "SELECT COUNT(1) FROM movimento WHERE idcontacorrente = @IdContaCorrente",
+                new { IdContaCorrente = idContaCorrente });
+            return result > 0;
         }
     }
 }

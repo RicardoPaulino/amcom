@@ -16,8 +16,8 @@ builder.Services.AddSingleton(new DatabaseConfig { Name = builder.Configuration.
 builder.Services.AddSingleton<IDatabaseBootstrap, DatabaseBootstrap>();
 
 #region Repositories
-builder.Services.AddTransient<IIdempotanceRepository, IdempotenceRepository>();
-builder.Services.AddTransient<IMovementRepository, MovementRepository>();
+builder.Services.AddTransient<IIdempotanciaRepository, IdempotenciaRepository>();
+builder.Services.AddTransient<IMovimentoRepository, MovimentoRepository>();
 builder.Services.AddTransient<IContaCorrenteRepository, ContaCorrenteRepository>();
 #endregion
 
