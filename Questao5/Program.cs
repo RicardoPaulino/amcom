@@ -15,11 +15,7 @@ builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddSingleton(new DatabaseConfig { Name = builder.Configuration.GetValue<string>("DatabaseName", "Data Source=database.sqlite") });
 builder.Services.AddSingleton<IDatabaseBootstrap, DatabaseBootstrap>();
 
-#region Repositories
-builder.Services.AddTransient<IIdempotanciaRepository, IdempotenciaRepository>();
-builder.Services.AddTransient<IMovimentoRepository, MovimentoRepository>();
-builder.Services.AddTransient<IContaCorrenteRepository, ContaCorrenteRepository>();
-#endregion
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -47,5 +43,5 @@ app.Services.GetService<IDatabaseBootstrap>().Setup();
 
 app.Run();
 
-// Informações úteis:
+// Informaï¿½ï¿½es ï¿½teis:
 // Tipos do Sqlite - https://www.sqlite.org/datatype3.html
