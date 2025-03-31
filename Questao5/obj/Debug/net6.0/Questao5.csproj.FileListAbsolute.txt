@@ -140,7 +140,6 @@ C:\workbspace\amcom\Questao5\obj\Debug\net6.0\staticwebassets\msbuild.build.Ques
 C:\workbspace\amcom\Questao5\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Questao5.props
 C:\workbspace\amcom\Questao5\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Questao5.props
 C:\workbspace\amcom\Questao5\obj\Debug\net6.0\staticwebassets.pack.json
-C:\workbspace\amcom\Questao5\obj\Debug\net6.0\staticwebassets.upToDateCheck.txt
 C:\workbspace\amcom\Questao5\obj\Debug\net6.0\Questao5.csproj.Up2Date
 C:\workbspace\amcom\Questao5\obj\Debug\net6.0\Questao5.dll
 C:\workbspace\amcom\Questao5\obj\Debug\net6.0\refint\Questao5.dll

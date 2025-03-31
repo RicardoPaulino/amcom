@@ -4,6 +4,7 @@ using MediatR;
 using Questao5.Domain.Repositories;
 using Questao5.Infrastructure.Repositories;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +16,15 @@ builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddSingleton(new DatabaseConfig { Name = builder.Configuration.GetValue<string>("DatabaseName", "Data Source=database.sqlite") });
 builder.Services.AddSingleton<IDatabaseBootstrap, DatabaseBootstrap>();
 
+// FluentValidation
+//builder.Services.AddScoped<IValidator<MovimentoContaCorrenteCommand>, MovimentoContaCorrenteCommandValidator>();
+//builder.Services.AddValidatorsFromAssemblyContaining<MovimentoContaCorrenteCommandValidator>();
+//builder.Services.AddFluentValidationAutoValidation();
+
+// Repositories
+//builder.Services.AddTransient<IIdempotanciaRepository, IdempotenciaRepository>();
+builder.Services.AddTransient<IMovimentoContaCorrenteRepository, MovimentoContaCorrenteRepository>();
+builder.Services.AddTransient<IContaCorrenteRepository, ContaCorrenteRepository>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
